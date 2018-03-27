@@ -32,8 +32,10 @@ public class MD5Utils {
                 //使用『与算法』，java使用unicode字符，所以每个字符占位两个
                 // 需要与两位16进制最大值进行与运算，获取number值
                 int number = b & 0xff;
+                //number值转换字符串
                 String hex = Integer.toHexString(number);
                 if (hex.length() == 1){
+                    //若转换后的字符长度等于1则进行字符串拼接
                     sb.append("0"+hex);
                 }else {
                     sb.append(hex);
@@ -42,6 +44,7 @@ public class MD5Utils {
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+            //发送异常return空字符串
             return "";
         }
     }
