@@ -14,6 +14,7 @@
     <include layout="@layout/main_title_bar"/>
 <!--ImageView中layout_gravity,layout_marginTop控件位置-->
     <!--drawableLeft为在EditText中的左边显示图标，drawablePadding为内边距10dp-->
+    <!--android:paddingLeft指该控件内部内容，如文本距离该控件的边距-->
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -40,7 +41,7 @@
         android:textColor="#000000"
         android:textColorHint="#a3a3a3"
         android:textSize="14sp"/>
-
+    <!--android:paddingLeft指该控件内部内容，如文本距离该控件的边距-->
     <EditText
         android:id="@+id/et_psw"
         android:layout_width="match_parent"
@@ -49,16 +50,18 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:background="@drawable/register_psw_bg"
+
         android:drawableLeft="@drawable/psw_icon"
         android:drawablePadding="10dp"
         android:hint="请输入密码"
         android:inputType="textPassword"
+
         android:paddingLeft="8dp"
         android:singleLine="true"
         android:textColor="#000000"
         android:textColorHint="#a3a3a3"
         android:textSize="14sp"/>
-    
+    <!--android:paddingLeft指该控件内部内容，如文本距离该控件的边距-->
     <EditText
         android:id="@+id/et_psw_again"
         android:layout_width="match_parent"
@@ -67,16 +70,18 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:background="@drawable/register_psw_again_bg"
+
         android:drawableLeft="@drawable/psw_icon"
         android:drawablePadding="10dp"
         android:hint="请再次输入密码"
         android:inputType="textPassword"
+
         android:paddingLeft="8dp"
         android:singleLine="true"
         android:textColor="#000000"
         android:textColorHint="#a3a3a3"
         android:textSize="14sp"/>
-    
+    <!--Button中layout_gravity为水平居中-->
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
