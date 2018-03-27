@@ -1,5 +1,7 @@
 package cn.edu.gdmec.android.vicdemo;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import cn.edu.gdmec.android.vicdemo.utils.MD5Utils;
 
 /**
  * Created by Jack on 2018/3/27.
@@ -51,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
     private String userName,psw,pswAgain;
     //标题布局
     private RelativeLayout rl_title_bar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
         //设置此界面为竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initView();
-
     }
 
     private EditText getEtUserName() {
@@ -75,7 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
         return (EditText) findViewById(R.id.et_psw_again);
     }
 
-
     private void initView() {
         //从 main_title_bar.xml 页面布局中获得对应的 UI 控件
         tv_main_title=(TextView) findViewById(R.id.tv_main_title);
@@ -83,32 +84,87 @@ public class RegisterActivity extends AppCompatActivity {
         tv_back = (TextView) findViewById(R.id.tv_back);
         rl_title_bar=(RelativeLayout) findViewById(R.id.title_bar);
         rl_title_bar.setBackgroundColor(Color.TRANSPARENT);
+        //从 activity_register.xml 页面布局中获得对应的 UI 控件
+        btn_register=(Button) findViewById(R.id.btn_register);
+        et_user_name=(EditText) findViewById(R.id.et_user_name);
+        et_psw=(EditText) findViewById(R.id.et_psw);
+        et_psw_again=(EditText) findViewById(R.id.et_psw_again);
+        tv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegisterActivity.this.finish();
+            }
+        });
+
+        btn_register.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                //获取输入在相应控件中的字符串
+                getEditString();
+                //判断输入框内容
+                if(TextUtils.isEmpty(userName)){
+                    Toast.makeText(RegisterActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(TextUtils.isEmpty(psw)){
+                    Toast.makeText(RegisterActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(TextUtils.isEmpty(pswAgain)){
+                    Toast.makeText(RegisterActivity.this, "请再次输入密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(!psw.equals(pswAgain)){
+                    Toast.makeText(RegisterActivity.this, "输入两次的密码不一样", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(isExistUserName(userName)){
+                    Toast.makeText(RegisterActivity.this, "此账户名已经存在", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    //把账号、密码和账号标识保存到sp里面
+                    saveRegisterInfo(userName, psw);
+                    //注册成功后把账号传递到LoginActivity.java中
+                    Intent data =new Intent();
+                    data.putExtra("userName", userName);
+                    setResult(RESULT_OK, data);
+                    //RESULT_OK为Activity系统常量，状态码为-1，表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
+                    RegisterActivity.this.finish();
+                }
+            }
+        });
 
     }
 
-    private void submit() {
-        // validate
-        String name = et_user_name.getText().toString().trim();
-        if (TextUtils.isEmpty(name)) {
-            Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show();
-            return;
+    // 获取控件中的字符串
+    private void getEditString(){
+        userName=et_user_name.getText().toString().trim();
+        psw=et_psw.getText().toString().trim();
+        pswAgain=et_psw_again.getText().toString().trim();
+    }
+
+    /**
+     *从SharedPreferences中读取输入的用户名，判断SharedPreferences中是否有此用户名
+     */
+    private boolean isExistUserName(String userName){
+        boolean has_userName=false;
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        String spPsw=sp.getString(userName, "");//传入用户名获取密码
+        if(!TextUtils.isEmpty(spPsw)) {//如果密码不为空则确实保存过这个用户名
+            has_userName=true;
         }
+        return has_userName;
+    }
 
-        String psw = et_psw.getText().toString().trim();
-        if (TextUtils.isEmpty(psw)) {
-            Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String again = et_psw_again.getText().toString().trim();
-        if (TextUtils.isEmpty(again)) {
-            Toast.makeText(this, "请再次输入密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // TODO validate success, do something
-
-
+    /**
+     * 保存账号和密码到SharedPreferences中
+     */
+    private void saveRegisterInfo(String userName,String psw){
+        String md5Psw= MD5Utils.md5(psw);//把密码用MD5加密
+        //loginInfo表示文件名
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();//获取编辑器
+        //以用户名为key，密码为value保存在SharedPreferences中
+        editor.putString(userName, md5Psw);
+        editor.commit();//提交修改
     }
 }
 
