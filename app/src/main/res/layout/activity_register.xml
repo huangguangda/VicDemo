@@ -4,19 +4,90 @@
 <!--ImageView用户显示头像-->
 <!--include用于将main_title_bar.xml将标题栏引入-->
 <!--用LinearLayout线性布局-->
+<!--添加背景图片，美化注册界面 android:orientation="vertical"-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/register_bg"
     android:orientation="vertical">
     <include layout="@layout/main_title_bar"/>
-
+<!--ImageView中layout_gravity,layout_marginTop控件位置-->
+    <!--drawableLeft为在EditText中的左边显示图标，drawablePadding为内边距10dp-->
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/default_icon" />
+    <EditText
+        android:id="@+id/et_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/register_user_name_bg"
+
+        android:drawableLeft="@drawable/user_name_icon"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:hint="请输入用户名"
+
+        android:paddingLeft="8dp"
+        android:singleLine="true"
+        android:textColor="#000000"
+        android:textColorHint="#a3a3a3"
+        android:textSize="14sp"/>
+
+    <EditText
+        android:id="@+id/et_psw"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:background="@drawable/register_psw_bg"
+        android:drawableLeft="@drawable/psw_icon"
+        android:drawablePadding="10dp"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp"
+        android:singleLine="true"
+        android:textColor="#000000"
+        android:textColorHint="#a3a3a3"
+        android:textSize="14sp"/>
+    
+    <EditText
+        android:id="@+id/et_psw_again"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:background="@drawable/register_psw_again_bg"
+        android:drawableLeft="@drawable/psw_icon"
+        android:drawablePadding="10dp"
+        android:hint="请再次输入密码"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp"
+        android:singleLine="true"
+        android:textColor="#000000"
+        android:textColorHint="#a3a3a3"
+        android:textSize="14sp"/>
+    
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/register_selector"
+        android:text="注 册"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"/>
+
 </LinearLayout>
