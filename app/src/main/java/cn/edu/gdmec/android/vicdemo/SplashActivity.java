@@ -32,6 +32,7 @@ public class SplashActivity extends AppCompatActivity{
 
         try {
             //获取程序包信息
+            //通过PackageManager的getPackageInfo()方法获取PackageInfo对象
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(),0);
             textView.setText("version:"+info.versionName);
         } catch (PackageManager.NameNotFoundException e) {
@@ -50,6 +51,7 @@ public class SplashActivity extends AppCompatActivity{
                 SplashActivity.this.finish();
             }
         };
+        //Timer 的schedule()方法是任务调度方法 调度 TimerTask 执行跳转操作，实现延迟跳转功能
         timer.schedule(timerTask,3000);//设置这个 task 在延迟三秒之后自动执行
     }
 
