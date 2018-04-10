@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--1 个 ImageView 控件，用于显示用户头像；
-2 个 EditText 控件，分别用于输入用户名和密码；
-1 个 Button 控件作为登录按钮-->
-<!--2 个 TextView 控件，分别用于显示文字“立即注册”和“找回密码？”-->
+<!--登录界面-->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
     android:orientation="vertical">
-
+    <!--标题栏-->
     <include layout="@layout/main_title_bar"></include>
-
     <ImageView
         android:id="@+id/iv_head"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
-        android:src="@drawable/default_icon" />
-
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/default_icon"/>
     <EditText
         android:id="@+id/et_user_name"
         android:layout_width="fill_parent"
@@ -37,8 +33,7 @@
         android:singleLine="true"
         android:textColor="#000000"
         android:textColorHint="#a3a3a3"
-        android:textSize="14sp" />
-
+        android:textSize="14sp"/>
     <EditText
         android:id="@+id/et_psw"
         android:layout_width="fill_parent"
@@ -50,13 +45,13 @@
         android:drawableLeft="@drawable/psw_icon"
         android:drawablePadding="10dp"
         android:paddingLeft="8dp"
+        android:gravity="center_vertical"
         android:hint="请输入密码"
         android:inputType="textPassword"
         android:singleLine="true"
         android:textColor="#000000"
         android:textColorHint="#a3a3a3"
-        android:textSize="14sp" />
-
+        android:textSize="14sp"/>
     <Button
         android:id="@+id/btn_login"
         android:layout_width="fill_parent"
@@ -66,10 +61,9 @@
         android:layout_marginRight="35dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/register_selector"
-        android:text="登录"
+        android:text="登 录"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
-
+        android:textSize="18sp"/>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -77,8 +71,7 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:gravity="center_horizontal"
-        android:orientation="horizontal" >
-
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/tv_register"
             android:layout_width="0dp"
@@ -90,7 +83,6 @@
             android:textColor="@android:color/white"
             android:textSize="14sp" />
         <!--layout_weight="1" layout_width="0dp"实现均分效果-->
-
         <TextView
             android:id="@+id/tv_find_psw"
             android:layout_width="0dp"
@@ -101,7 +93,5 @@
             android:text="找回密码?"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
-
     </LinearLayout>
-
 </LinearLayout>
