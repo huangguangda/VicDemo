@@ -23,14 +23,17 @@ public class SettingActivity extends Activity implements View.OnClickListener{
     private RelativeLayout title_bar;
     private TextView tv_back;
     private TextView tv_main_title;
+    //settingActivity.java，给它创个instance
+    public static SettingActivity instance=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        instance=this;
         initView();
     }
     private void initView(){
-        rl_modify_psw=findViewById(R.id.rl_modiy_psw);
+        rl_modify_psw=findViewById(R.id.rl_modify_psw);
         rl_security_setting=findViewById(R.id.rl_security_setting);
         rl_exit_login=findViewById(R.id.rl_exit_login);
         //标题栏
@@ -53,7 +56,7 @@ public class SettingActivity extends Activity implements View.OnClickListener{
             case R.id.tv_back:
                 SettingActivity.this.finish();
                 break;
-            case R.id.rl_modiy_psw:
+            case R.id.rl_modify_psw:
                 //修改密码界面
                 break;
             case R.id.rl_security_setting:
