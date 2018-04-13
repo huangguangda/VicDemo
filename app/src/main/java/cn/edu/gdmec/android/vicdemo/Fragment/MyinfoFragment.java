@@ -12,9 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import cn.edu.gdmec.android.vicdemo.LoginActivity;
+import cn.edu.gdmec.android.vicdemo.Activity.LoginActivity;
+import cn.edu.gdmec.android.vicdemo.Activity.SettingActivity;
 import cn.edu.gdmec.android.vicdemo.R;
-import cn.edu.gdmec.android.vicdemo.SettingActivity;
 import cn.edu.gdmec.android.vicdemo.utils.AnalysisUtils;
 
 public class MyinfoFragment extends Fragment implements View.OnClickListener{

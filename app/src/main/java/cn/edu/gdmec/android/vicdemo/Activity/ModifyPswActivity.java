@@ -1,4 +1,4 @@
-package cn.edu.gdmec.android.vicdemo;
+package cn.edu.gdmec.android.vicdemo.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.edu.gdmec.android.vicdemo.R;
 import cn.edu.gdmec.android.vicdemo.utils.AnalysisUtils;
 import cn.edu.gdmec.android.vicdemo.utils.MD5Utils;
 

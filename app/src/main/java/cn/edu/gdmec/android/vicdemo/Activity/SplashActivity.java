@@ -1,4 +1,4 @@
-package cn.edu.gdmec.android.vicdemo;
+package cn.edu.gdmec.android.vicdemo.Activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import cn.edu.gdmec.android.vicdemo.R;
 
 /**
  * Created by Jack on 2018/3/27.

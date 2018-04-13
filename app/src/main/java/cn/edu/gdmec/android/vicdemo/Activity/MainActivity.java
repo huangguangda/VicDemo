@@ -1,10 +1,10 @@
-package cn.edu.gdmec.android.vicdemo;
+package cn.edu.gdmec.android.vicdemo.Activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import cn.edu.gdmec.android.vicdemo.Fragment.CourseFragment;
 import cn.edu.gdmec.android.vicdemo.Fragment.ExercisesFragment;
 import cn.edu.gdmec.android.vicdemo.Fragment.MyinfoFragment;
+import cn.edu.gdmec.android.vicdemo.R;
 import cn.edu.gdmec.android.vicdemo.utils.AnalysisUtils;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
