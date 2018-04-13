@@ -1,19 +1,22 @@
 package cn.edu.gdmec.android.vicdemo;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cn.edu.gdmec.android.vicdemo.Fragment.CourseFragment;
 import cn.edu.gdmec.android.vicdemo.Fragment.ExercisesFragment;
 import cn.edu.gdmec.android.vicdemo.Fragment.MyinfoFragment;
+import cn.edu.gdmec.android.vicdemo.utils.AnalysisUtils;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
     //来自main_title_bar.xml
@@ -44,6 +47,43 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private RelativeLayout bottom_bar_course_btn;
     private RelativeLayout bottom_bar_exercises_btn;
     private RelativeLayout bottom_bar_myinfo_btn;
+
+    protected long exitTime;
+    //给MainActivity加上退出清除登陆状态的方法。
+    // 连续点击返回两次则退出，两次点击间隔超过2秒则提示再按一次退出。
+    @Override
+    public boolean onKeyDown(int keyCode,KeyEvent event){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if ((System.currentTimeMillis()-exitTime) > 2000){
+                Toast.makeText(MainActivity.this,"再按一次退出博学谷",Toast.LENGTH_SHORT).show();
+                exitTime=System.currentTimeMillis();
+            }else {
+                this.finish();
+                if (AnalysisUtils.readLoginStatus(this)){
+                    AnalysisUtils.cleanLoginStatus(this);
+                }
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode,event);
+    }
+    //onActivityResult();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //判断从LoginActivity传过来登陆状态，并执行响应动作。
+        if (data!=null){
+            boolean isLogin=data.getBooleanExtra("isLogin",false);
+            if (isLogin){
+                //课程
+                setSelectStatus(0);
+            }else {
+                //我
+                setSelectStatus(2);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
