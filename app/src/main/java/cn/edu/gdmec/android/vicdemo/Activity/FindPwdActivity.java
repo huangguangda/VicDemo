@@ -35,6 +35,7 @@ public class FindPwdActivity extends Activity implements View.OnClickListener{
     private EditText et_user_name;
     private EditText et_validate_name;
     private TextView tv_reset_psw;
+    private TextView et_reset_psw;
 
     private Button btn_validate;
     private String from;
@@ -55,6 +56,7 @@ public class FindPwdActivity extends Activity implements View.OnClickListener{
         et_user_name=findViewById(R.id.et_user_name);
         et_validate_name=findViewById(R.id.et_validate_name);
         tv_reset_psw=findViewById(R.id.tv_reset_psw);
+        et_reset_psw=findViewById(R.id.et_reset_psw);
         btn_validate=findViewById(R.id.btn_validate);
         if ("security".equals(from)){
             tv_main_title.setText("设置密保");
@@ -82,18 +84,21 @@ public class FindPwdActivity extends Activity implements View.OnClickListener{
     }
 
     private void submit() {
+        // validate
         String validateName = et_validate_name.getText().toString().trim();
-        if ("security".equals(from)){
-            if (TextUtils.isEmpty(validateName)){
-                Toast.makeText(this,"请输入要验证的姓名",Toast.LENGTH_SHORT).show();
+        if ("security".equals(from)) {  //设置密保
+            if (TextUtils.isEmpty(validateName)) {
+                Toast.makeText(this, "请输入要验证的姓名", Toast.LENGTH_SHORT).show();
                 return;
-            }else {
-                Toast.makeText(this,"密保设置成功",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "密保设置成功", Toast.LENGTH_SHORT).show();
+                //保存到
                 saveSecurity(validateName);
                 FindPwdActivity.this.finish();
+                return;
             }
         }else {
-            String name=et_user_name.getText().toString().trim();
+            final String name=et_user_name.getText().toString().trim();
             String sp_security=readSecurity(name);
             if (TextUtils.isEmpty(name)){
                 Toast.makeText(this,"请输入您的用户名",Toast.LENGTH_SHORT).show();
@@ -108,18 +113,42 @@ public class FindPwdActivity extends Activity implements View.OnClickListener{
                 Toast.makeText(this,"输入的密保不正确",Toast.LENGTH_SHORT).show();
                 return;
             }else {
-                tv_reset_psw.setVisibility(View.VISIBLE);
+                /*tv_reset_psw.setVisibility(View.VISIBLE);
                 tv_reset_psw.setText("初始密码：123456");
-                savePsw(name);
+                savePsw(name);*/
+                //输入密保正确，重新给用户设置一个密码
+                tv_reset_psw.setVisibility(View.VISIBLE);
+                et_reset_psw.setVisibility(View.VISIBLE);
+                btn_validate.setText("确认");
+                btn_validate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String resetPsw = et_reset_psw.getText().toString().trim();
+                        //暂时仅验证不为空
+                        if (!TextUtils.isEmpty(resetPsw)) {
+                            savePsw(name, resetPsw);
+                            FindPwdActivity.this.finish();
+                        } else {
+                            Toast.makeText(FindPwdActivity.this, "请输入要设置的新密码", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         }
     }
-
-    private void savePsw(String name){
-        String md5Psw= MD5Utils.md5("123456");
+    /**
+     * 保存初始化密码
+     **/
+    private void savePsw(String name, String resetPsw){
+        /*String md5Psw= MD5Utils.md5("123456");
         SharedPreferences sharedPreferences = getSharedPreferences("loginInfo",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(name,md5Psw);
+        editor.commit();*/
+        String md5Psw = MD5Utils.md5(resetPsw);
+        SharedPreferences sp = getSharedPreferences("loginInfo", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(name, md5Psw);
         editor.commit();
     }
 
@@ -133,11 +162,17 @@ public class FindPwdActivity extends Activity implements View.OnClickListener{
         }
         return hasUserName;
     }
+    /**
+     * 读取密保
+     **/
     private String readSecurity(String name){
         SharedPreferences sharedPreferences=getSharedPreferences("loginInfo",MODE_PRIVATE);
         String security=sharedPreferences.getString(name+"_security","");
         return security;
     }
+    /**
+     * 保存密保名字
+     **/
     private void saveSecurity(String validateName) {
         SharedPreferences sharedPreferences=getSharedPreferences("loginInfo",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();

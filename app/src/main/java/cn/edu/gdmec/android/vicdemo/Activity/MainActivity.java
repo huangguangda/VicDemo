@@ -76,6 +76,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //判断从LoginActivity传过来登陆状态，并执行响应动作。
         if (data!=null){
             boolean isLogin=data.getBooleanExtra("isLogin",false);
+            //从登录活动获得isLogin==true,从设置活动获得isLogin==false，他们的请求码都是1
+            //之后还可以根据请求码和结果码完成更多需求
             if (isLogin){
                 //课程
                 setSelectStatus(0);
@@ -112,6 +114,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 bottom_bar_image_exercises.setImageResource(R.drawable.main_exercises_icon);
                 bottom_bar_image_myinfo.setImageResource(R.drawable.main_my_icon);
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new CourseFragment()).commit();
+                tv_main_title.setText("博学谷课程");
                 break;
             case 1:
                 bottom_bar_image_exercises.setImageResource(R.drawable.main_exercises_icon_selected);
@@ -122,6 +126,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 bottom_bar_image_course.setImageResource(R.drawable.main_course_icon);
                 bottom_bar_image_myinfo.setImageResource(R.drawable.main_my_icon);
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new ExercisesFragment()).commit();
+                tv_main_title.setText("博学谷习题");
                 break;
             case 2:
                 bottom_bar_image_myinfo.setImageResource(R.drawable.main_my_icon_selected);
@@ -132,6 +138,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 bottom_bar_image_exercises.setImageResource(R.drawable.main_exercises_icon);
                 bottom_bar_image_course.setImageResource(R.drawable.main_course_icon);
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new MyinfoFragment()).commit();
+                tv_main_title.setText("博学谷");
                 break;
         }
     }
@@ -170,15 +178,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bottom_bar_course_btn:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new CourseFragment()).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new CourseFragment()).commit();
                 setSelectStatus(0);
                 break;
             case R.id.bottom_bar_exercises_btn:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new ExercisesFragment()).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new ExercisesFragment()).commit();
                 setSelectStatus(1);
                 break;
             case R.id.bottom_bar_myinfo_btn:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new MyinfoFragment()).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new MyinfoFragment()).commit();
                 setSelectStatus(2);
                 break;
         }
