@@ -23,6 +23,7 @@ import cn.edu.gdmec.android.vicdemo.utils.MD5Utils;
  * tv_reset_psw
  * et_reset_psw
  * btn_validate
+ * et_reset_psw=findViewById(R.id.et_reset_psw);
  */
 
 public class FindPwdActivity extends Activity implements View.OnClickListener{
