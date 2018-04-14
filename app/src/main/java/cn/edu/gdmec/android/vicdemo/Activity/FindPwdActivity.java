@@ -30,7 +30,7 @@ public class FindPwdActivity extends Activity implements View.OnClickListener{
     private RelativeLayout title_bar;
     private TextView tv_back;
     private TextView tv_main_title;
-    //
+    //activity_find_psw
     private TextView tv_user_name;
     private EditText et_user_name;
     private EditText et_validate_name;
