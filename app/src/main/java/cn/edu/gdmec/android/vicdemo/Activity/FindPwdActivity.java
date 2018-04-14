@@ -43,6 +43,8 @@ public class FindPwdActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_psw);
+        //找回密码和设置密保用得是同一个界面
+        //获取从登录界面和设置界面传递过来的数据，由此判断显示和隐藏的部分
         from = getIntent().getStringExtra("from");
         initView();
     }
