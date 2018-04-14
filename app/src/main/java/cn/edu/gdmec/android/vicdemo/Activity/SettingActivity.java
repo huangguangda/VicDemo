@@ -64,6 +64,9 @@ public class SettingActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.rl_security_setting:
                 //设置密保界面
+                Intent intent1=new Intent(SettingActivity.this,FindPwdActivity.class);
+                intent1.putExtra("from","security");
+                startActivity(intent1);
                 break;
             case R.id.rl_exit_login:
                 //退出登录，即清除登录状态
