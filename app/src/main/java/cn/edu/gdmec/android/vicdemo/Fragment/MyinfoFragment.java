@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import cn.edu.gdmec.android.vicdemo.Activity.LoginActivity;
 import cn.edu.gdmec.android.vicdemo.Activity.SettingActivity;
+import cn.edu.gdmec.android.vicdemo.Activity.UserInfoActivity;
 import cn.edu.gdmec.android.vicdemo.R;
 import cn.edu.gdmec.android.vicdemo.utils.AnalysisUtils;
 
@@ -63,6 +64,8 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener{
             case R.id.ll_head:
                 if (AnalysisUtils.readLoginStatus(getActivity())){
                     //跳转到个人资料界面
+                    Intent intent=new Intent(getActivity(), UserInfoActivity.class);
+                    getActivity().startActivity(intent);
                 }else {
                     //跳转到登录界面
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
