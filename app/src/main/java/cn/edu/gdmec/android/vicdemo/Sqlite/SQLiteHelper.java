@@ -22,20 +22,24 @@ public class SQLiteHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+ U_USER_INFO + "("
-        + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        + "userName VARCHAR, "
-        + "sex VARCHAR, "
-        + "signature VARCHAR, "
-        + "qq VARCHAR "
-        + ")");
+        /**
+         * 当这个SQLiteOpenHelper的子类类被实例化时会创建指定名的数据库，在onCreate中创建个人信息表
+         * **/
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + U_USER_INFO + "( "
+                + "_id  INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "userName VARCHAR, "
+                + "nickName VARCHAR, "
+                + "sex VARCHAR, "
+                + "signature VARCHAR, "
+                + "qq VARCHAR "
+                + ")");
     }
 
     /**
      * 当数据库版本号增加才会调用此方法
      **/
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + U_USER_INFO);
         onCreate(db);
     }

@@ -55,8 +55,7 @@ public class DBUtils {
      * 获取个人资料信息
      **/
     public UserBean getUserInfo(String userName) {
-        String sql = "SELECT * FROM " + SQLiteHelper.U_USER_INFO + " WHERE userName=?";
-        //?和下面数组内元素会逐个替换，可以多条件查询=?and =?
+        String sql = "SELECT * FROM " + SQLiteHelper.U_USER_INFO + " WHERE userName=?"; //?和下面数组内元素会逐个替换，可以多条件查询=?and =?
         //You may include ?s in where clause in the query, which will be replaced by the values from selectionArgs.
         Cursor cursor = db.rawQuery(sql, new String[]{userName});
         UserBean bean = null;

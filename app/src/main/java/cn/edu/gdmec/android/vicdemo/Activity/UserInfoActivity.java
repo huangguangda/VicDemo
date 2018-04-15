@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import cn.edu.gdmec.android.vicdemo.Bean.UserBean;
 import cn.edu.gdmec.android.vicdemo.R;
+import cn.edu.gdmec.android.vicdemo.utils.AnalysisUtils;
 import cn.edu.gdmec.android.vicdemo.utils.DBUtils;
 
 /**
@@ -59,10 +60,11 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_user_info);
         //设置此界面为竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        spUserName= AnalysisUtils.readLoginUserName(this);
         initView();
-        initData();
+        initDate();
     }
-    private void initData() {
+    private void initDate() {
         UserBean bean = null;
         //实例化DBUtils，同时调用其方法获取个人信息资料
         bean = DBUtils.getInstance(this).getUserInfo(spUserName);
@@ -107,6 +109,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
         rl_qq=findViewById(R.id.rl_qq);
         tv_qq=findViewById(R.id.tv_qq);
         //
+        tv_back.setOnClickListener(this);
         rl_head.setOnClickListener(this);
         rl_account.setOnClickListener(this);
         rl_nickName.setOnClickListener(this);
