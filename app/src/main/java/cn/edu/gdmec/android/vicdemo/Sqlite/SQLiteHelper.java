@@ -39,7 +39,7 @@ public class SQLiteHelper extends SQLiteOpenHelper{
      * 当数据库版本号增加才会调用此方法
      **/
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + U_USER_INFO);
         onCreate(db);
     }
