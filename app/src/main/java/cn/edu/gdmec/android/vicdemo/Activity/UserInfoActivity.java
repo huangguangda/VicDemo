@@ -128,7 +128,8 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
                 bdName.putString("content", name);      //传递界面上的昵称数据
                 bdName.putString("title", "昵称");
                 bdName.putInt("flag", 1);
-                //enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_NICKNAME, bdName);//跳转到修改界面
+                //ActivityUserInfoActivity的Onclick()里昵称和签名响应加上跳转代码
+                enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_NICKNAME, bdName);//跳转到修改界面
                 break;
             case R.id.rl_sex:
                 String sex = tv_sex.getText().toString();
@@ -141,7 +142,8 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
                 bdSignature.putString("content", signature); //传递界面上的签名数据
                 bdSignature.putString("title", "签名");
                 bdSignature.putInt("flag", 2);
-                //enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_SIGNATURE, bdSignature);
+                //ActivityUserInfoActivity的Onclick()里昵称和签名响应加上跳转代码
+                enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_SIGNATURE, bdSignature);
                 break;
             case R.id.rl_qq:
                 String qq = tv_qq.getText().toString();
@@ -149,7 +151,8 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
                 bdqq.putString("content", qq); //传递界面上的签名数据
                 bdqq.putString("title", "QQ号");
                 bdqq.putInt("flag", 3);
-                //enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_QQ, bdqq);
+                //ActivityUserInfoActivity的Onclick()里昵称和签名响应加上跳转代码
+                enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_QQ, bdqq);
                 break;
             default:
                 break;
