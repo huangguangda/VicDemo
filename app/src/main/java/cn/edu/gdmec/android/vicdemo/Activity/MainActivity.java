@@ -41,6 +41,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     protected long exitTime;
 
+    private void setListener() {
+        for (int i = 0; i < main_bottom_bar.getChildCount(); i++) {
+            main_bottom_bar.getChildAt(i).setOnClickListener(this);
+        }
+    }
     //给MainActivity加上退出清除登陆状态的方法。
     // 连续点击返回两次则退出，两次点击间隔超过2秒则提示再按一次退出。
     @Override
@@ -65,25 +70,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //
-        //String name = data.getStringExtra("data1");
-        //判断从LoginActivity传过来登陆状态，并执行响应动作。
         if (data != null) {
             boolean isLogin = data.getBooleanExtra("isLogin", false);
             //从登录活动获得isLogin==true,从设置活动获得isLogin==false，他们的请求码都是1
-            // 之后还可以根据请求码和结果码完成更多需求
+            //之后还可以根据请求码和结果码完成更多需求
             if (isLogin) {
                 setSelectStatus(2);
             } else {
                 setSelectStatus(2);
             }
-        }//&& resultCode == 2
-        if (requestCode == 000 ) {
-
-            /*if (name.equals(5)){
-                TextView tvContent = findViewById(R.id.tv_content);
-                tvContent.setText("已完成");
-            }*/
+        }
+        if (requestCode == 000) {
+            this.getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new ExercisesFragment()).commit();
             setSelectStatus(1);
         }
     }
@@ -100,6 +98,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private void setMain() {
         //getSupportFragmentManager() -> beginTransaction() -> add -> (R.id.main_boy,显示课程 new CourseFragment()
         this.getSupportFragmentManager().beginTransaction().add(R.id.main_body,new CourseFragment()).commit();
+        setSelectStatus(2);
     }
 
     private void setSelectStatus(int index) {

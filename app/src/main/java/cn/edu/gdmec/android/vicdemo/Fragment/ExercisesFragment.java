@@ -14,18 +14,20 @@ import cn.edu.gdmec.android.vicdemo.Bean.ExercisesBean;
 import cn.edu.gdmec.android.vicdemo.R;
 import cn.edu.gdmec.android.vicdemo.adapter.ExercisesListItemAdapter;
 
-
+/*
+* 显示布局界面
+* 创建数据储存池，实例化习题列表数据
+* */
 public class ExercisesFragment extends Fragment  {
-    private ListView lvList;
-    private ExercisesListItemAdapter adapter;
-    private List<ExercisesBean> ebl;
+    private ListView lvList;//来源fragment_exercises
+    private ExercisesListItemAdapter adapter; //适配器
+    private List<ExercisesBean> ebl; //列表集合
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_exercises, null);
     }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -35,6 +37,7 @@ public class ExercisesFragment extends Fragment  {
         adapter.setData(ebl);
         lvList.setAdapter(adapter);
     }
+
     private void initData(){
         ebl = new ArrayList<ExercisesBean>();
         for (int i=0;i<10;i++){
@@ -90,6 +93,8 @@ public class ExercisesFragment extends Fragment  {
                     bean.title="第10章 高级编程";
                     bean.content="共计5题";
                     bean.background=(R.drawable.exercises_bg_2);
+                    break;
+                default:
                     break;
             }
             ebl.add(bean);

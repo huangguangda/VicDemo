@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.gdmec.android.vicdemo.Activity.ExercisesDetailActivity;
 import cn.edu.gdmec.android.vicdemo.Bean.ExercisesBean;
 
 /**
@@ -96,9 +97,20 @@ public class AnalysisUtils {
         iv_d.setEnabled(value);
     }
 
-    public static boolean readExerciseStatus(Context context, int i) {
-        SharedPreferences sharedPreferences=context.getSharedPreferences("exercises", Context.MODE_PRIVATE);
-        boolean isDone=sharedPreferences.getBoolean("isDone"+i,false);
+   /* public static boolean readExerciseStatus(Context context, int i) {
+    }*/
+
+    public static boolean readExerciseStatus(Context context,int i){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
+        boolean isDone = sharedPreferences.getBoolean("isDone"+i, false);
         return isDone;
+
+    }
+    public static void saveExerciseStatus(Context context,int i){
+
+        SharedPreferences sp = context.getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("isDone"+i, true);
+        editor.commit();
     }
 }

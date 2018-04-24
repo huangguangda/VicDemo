@@ -17,21 +17,17 @@ import cn.edu.gdmec.android.vicdemo.utils.AnalysisUtils;
 
 public class ExercisesDetailListItemAdapter extends
         RecyclerView.Adapter<ExercisesDetailListItemAdapter.ViewHolder> {
-
     private List<ExercisesBean> objects = new ArrayList<ExercisesBean>();
     private ArrayList<String> selectedPosition = new ArrayList<String>();
     private Context context;
     private LayoutInflater layoutInflater;
     private OnSelectListener onSelectListener;
-    //任务
-    private MyItemClickListener mItemClickListener;
+    private OnItemListener onItemListener;
 
-    public ExercisesDetailListItemAdapter(Context context, OnSelectListener onSelectListener, MyItemClickListener mItemClickListener) {
+    public ExercisesDetailListItemAdapter(Context context, OnSelectListener onSelectListener) {
         this.context = context;
-        this.layoutInflater = LayoutInflater.from(context);
         this.onSelectListener = onSelectListener;
-        //任务
-        this.mItemClickListener = mItemClickListener;
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -39,9 +35,7 @@ public class ExercisesDetailListItemAdapter extends
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.exercises_detail_list_item, parent,
                 false);
-        //return new ViewHolder(view);
-        //任务
-        return new ViewHolder(view, mItemClickListener);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -180,7 +174,9 @@ public class ExercisesDetailListItemAdapter extends
         holder.ivA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ////判断selectedPosition中是否包含此时点击的position
+                if (onItemListener!=null){
+                    onItemListener.onItem(v,position);
+                }
                 if (selectedPosition.contains("" + position)) {
                     selectedPosition.remove("" + position);
                 } else {
@@ -188,14 +184,14 @@ public class ExercisesDetailListItemAdapter extends
                 }
                 onSelectListener.onSelectA(position, holder.ivA,
                         holder.ivB, holder.ivC, holder.ivD);
-                //
-                mItemClickListener.onItemClick(v,holder.getPosition()+1);
             }
         });
         holder.ivB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (onItemListener!=null){
+                    onItemListener.onItem(v,position);
+                }
                 if (selectedPosition.contains("" + position)) {
                     selectedPosition.remove("" + position);
                 } else {
@@ -203,14 +199,14 @@ public class ExercisesDetailListItemAdapter extends
                 }
                 onSelectListener.onSelectB(position, holder.ivA,
                         holder.ivB, holder.ivC, holder.ivD);
-                //
-                mItemClickListener.onItemClick(v,holder.getPosition()+1);
             }
         });
         holder.ivC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (onItemListener!=null){
+                    onItemListener.onItem(v,position);
+                }
                 if (selectedPosition.contains("" + position)) {
                     selectedPosition.remove("" + position);
                 } else {
@@ -218,14 +214,14 @@ public class ExercisesDetailListItemAdapter extends
                 }
                 onSelectListener.onSelectC(position, holder.ivA,
                         holder.ivB, holder.ivC, holder.ivD);
-                //
-                mItemClickListener.onItemClick(v,holder.getPosition()+1);
             }
         });
         holder.ivD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (onItemListener!=null){
+                    onItemListener.onItem(v,position);
+                }
                 if (selectedPosition.contains("" + position)) {
                     selectedPosition.remove("" + position);
                 } else {
@@ -233,8 +229,6 @@ public class ExercisesDetailListItemAdapter extends
                 }
                 onSelectListener.onSelectD(position, holder.ivA,
                         holder.ivB, holder.ivC, holder.ivD);
-                //
-                mItemClickListener.onItemClick(v,holder.getPosition()+1);
             }
         });
 
@@ -251,15 +245,9 @@ public class ExercisesDetailListItemAdapter extends
         private TextView tvC;
         private ImageView ivD;
         private TextView tvD;
-        //
-        private MyItemClickListener mListener;
 
-        //public ViewHolder(View view) {
-        public ViewHolder(View view, MyItemClickListener myItemClickListener) {
+        public ViewHolder(View view) {
             super(view);
-            //
-            this.mListener = myItemClickListener;
-            //
             tvSubject = (TextView) view.findViewById(R.id.tv_subject);
             ivA = (ImageView) view.findViewById(R.id.iv_a);
             tvA = (TextView) view.findViewById(R.id.tv_a);
@@ -270,10 +258,6 @@ public class ExercisesDetailListItemAdapter extends
             ivD = (ImageView) view.findViewById(R.id.iv_d);
             tvD = (TextView) view.findViewById(R.id.tv_d);
         }
-    }
-    //
-    public interface MyItemClickListener {
-        void onItemClick(View view, int position);
     }
 
     public interface OnSelectListener {
@@ -293,4 +277,14 @@ public class ExercisesDetailListItemAdapter extends
                        ImageView iv_b, ImageView iv_c,
                        ImageView iv_d);
     }
+    public interface OnItemListener{
+        void onItem(View view,int position);
+    }
+    public void setOnItemListener(OnItemListener onItemListener){
+        this.onItemListener=onItemListener;
+    }
+
+
+
+
 }

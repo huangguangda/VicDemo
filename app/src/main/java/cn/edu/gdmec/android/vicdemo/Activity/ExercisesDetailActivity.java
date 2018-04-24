@@ -1,12 +1,12 @@
 package cn.edu.gdmec.android.vicdemo.Activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdmec.android.vicdemo.Bean.ExercisesBean;
+import cn.edu.gdmec.android.vicdemo.Fragment.CourseFragment;
 import cn.edu.gdmec.android.vicdemo.R;
 import cn.edu.gdmec.android.vicdemo.adapter.ExercisesDetailListItemAdapter;
 import cn.edu.gdmec.android.vicdemo.utils.AnalysisUtils;
@@ -30,13 +31,17 @@ public class ExercisesDetailActivity extends Activity{
     private TextView tv_back;
     private TextView tv_main_title;
     private RelativeLayout title_bar;
+    private TextView tv_save;
+    private TextView tv_di;
     private int id;
     private String title;
+    private RecyclerView rv_list;
+
     private List<ExercisesBean> ebl;
     private ExercisesDetailListItemAdapter adapter;
-    private RecyclerView rv_list;
+
     //
-    private TextView tv_dibu;
+    public  int ff = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,13 @@ public class ExercisesDetailActivity extends Activity{
         initData();
         initView();
     }
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            this.getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new CourseFragment()).commit();
+        }
+    }*/
 
     private void initData() {
         //从xml文件中获取习题数据
@@ -63,15 +75,17 @@ public class ExercisesDetailActivity extends Activity{
     }
 
     private void initView() {
+        tv_save = findViewById(R.id.tv_save);
         tv_back = findViewById(R.id.tv_back);
         tv_main_title = findViewById(R.id.tv_main_title);
         tv_main_title.setText(title);
         title_bar = findViewById(R.id.title_bar);
         title_bar.setBackgroundColor(Color.parseColor("#30B4FF"));
         //
-        tv_dibu = (TextView) findViewById(R.id.tv_dibu);
+        tv_di = findViewById(R.id.tv_di);
         rv_list = findViewById(R.id.rv_list);
         rv_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,19 +205,24 @@ public class ExercisesDetailActivity extends Activity{
                         }
                         AnalysisUtils.setABCDEnable(false, iv_a, iv_b, iv_c, iv_d);
                     }
-                    //
-                }, new ExercisesDetailListItemAdapter.MyItemClickListener() {
-                   @Override
-                   public void onItemClick(View view, int position) {
-                       tv_dibu.setText("第" + position + "题完成，共5题");
-                       /*Intent data = new Intent();
-                       data.putExtra("data1",position);
-                       setResult(2,data);*/
-                   }
-                   //
-                });
+        });
         adapter.setData(ebl);
+
+        adapter.setOnItemListener(new ExercisesDetailListItemAdapter.OnItemListener() {
+            @Override
+            public void onItem(View view, int position) {
+                ff=ff+1;
+                tv_di.setText("第"+(position+1)+"题完成，共"+adapter.getItemCount()+"题");
+
+                if (ff==5){
+                    AnalysisUtils.saveExerciseStatus(ExercisesDetailActivity.this,id);
+                    Log.i("DD",id+"");
+                    setResult(RESULT_OK);
+                    //ff = 0;
+                }
+            }
+
+        });
         rv_list.setAdapter(adapter);
     }
-
 }

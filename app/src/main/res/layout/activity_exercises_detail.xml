@@ -31,7 +31,7 @@
         android:layout_height="fill_parent"
         android:divider="@null"/>-->
     <TextView
-        android:id="@+id/tv_dibu"
+        android:id="@+id/tv_di"
         android:text="第一页"
         android:gravity="center"
         android:textSize="20sp"
