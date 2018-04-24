@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdmec.android.vicdemo.Activity.ExercisesDetailActivity;
+import cn.edu.gdmec.android.vicdemo.Bean.CourseBean;
 import cn.edu.gdmec.android.vicdemo.Bean.ExercisesBean;
 
 /**
@@ -107,10 +108,56 @@ public class AnalysisUtils {
 
     }
     public static void saveExerciseStatus(Context context,int i){
-
         SharedPreferences sp = context.getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("isDone"+i, true);
         editor.commit();
     }
+    public static List<CourseBean> getCourseInfos(InputStream is) throws  Exception{
+        XmlPullParser parser=Xml.newPullParser();
+        parser.setInput(is,"utf-8");
+        List<CourseBean> courseList=null;
+        CourseBean courseInfo=null;
+        int type=parser.getEventType();
+        while(type !=XmlPullParser.END_DOCUMENT){
+            switch (type){
+                case XmlPullParser.START_TAG:
+                    if ("infos".equals(parser.getName())){
+                        courseList=new ArrayList<CourseBean>();
+                    }else if("course".equals(parser.getName())){
+                        courseInfo=new CourseBean();
+                        String ids=parser.getAttributeValue(0);
+                        courseInfo.id=Integer.parseInt(ids);
+
+                    }
+                    else if("imgtitle".equals(parser.getName())){
+
+                        String imgtitle=parser.nextText();
+                        courseInfo.imgTitle=imgtitle;
+
+                    }
+                    else if("title".equals(parser.getName())){
+                        String title=parser.nextText();
+                        courseInfo.title=title;
+
+                    }
+                    else if("intro".equals(parser.getName())){
+                        String intro=parser.nextText();
+                        courseInfo.intro=intro;
+
+                    }
+                    break;
+                case XmlPullParser.END_TAG:
+                    if ("course".equals(parser.getName())){
+                        courseList.add(courseInfo);
+                        courseInfo=null;
+                    }
+                    break;
+            }
+            type=parser.next();
+
+        }
+        return courseList;
+    }
+
 }
