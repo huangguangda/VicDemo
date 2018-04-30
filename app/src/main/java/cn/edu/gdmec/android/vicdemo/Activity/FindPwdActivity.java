@@ -122,7 +122,7 @@ public class FindPwdActivity extends Activity implements View.OnClickListener{
                 //输入密保正确，重新给用户设置一个密码
                 tv_reset_psw.setVisibility(View.VISIBLE);
                 et_reset_psw.setVisibility(View.VISIBLE);
-                btn_validate.setText("确认");
+                btn_validate.setText("设置");
                 btn_validate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

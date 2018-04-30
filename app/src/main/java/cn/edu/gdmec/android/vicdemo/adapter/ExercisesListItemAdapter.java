@@ -57,7 +57,6 @@ public class ExercisesListItemAdapter extends BaseAdapter{
         return objects.get(position);
     }
 
-
     /**
      * 根据position得到对应Item的对象
      */
@@ -95,9 +94,6 @@ public class ExercisesListItemAdapter extends BaseAdapter{
             }else{
                 holder.tvContent.setText(bean.content);
             }
-
-
-
             holder.tvOrder.setBackgroundResource(bean.background);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,7 +105,6 @@ public class ExercisesListItemAdapter extends BaseAdapter{
                     Intent intent = new Intent(context, ExercisesDetailActivity.class);
                     intent.putExtra("id", bean.id);
                     intent.putExtra("title", bean.title);
-
                     ((Activity) context).startActivityForResult(intent, 000);
                 }
             });

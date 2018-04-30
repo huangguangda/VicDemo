@@ -18,11 +18,6 @@ import android.widget.Toast;
 
 import cn.edu.gdmec.android.vicdemo.R;
 
-/**
- * Created by Jack on 2018/4/15.
- * et_content iv_delete
- */
-
 public class ChangeUserInfoActivity extends AppCompatActivity implements View.OnClickListener{
     //标题栏
     private TextView tv_back;

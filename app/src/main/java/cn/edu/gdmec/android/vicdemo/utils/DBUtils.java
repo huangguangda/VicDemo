@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import cn.edu.gdmec.android.vicdemo.Bean.UserBean;
 import cn.edu.gdmec.android.vicdemo.Sqlite.SQLiteHelper;
 
-/**
- * Created by Jack on 2018/4/15.
- */
 
 public class DBUtils {
     private static DBUtils instance = null;

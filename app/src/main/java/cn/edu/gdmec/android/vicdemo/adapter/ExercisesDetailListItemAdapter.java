@@ -284,7 +284,4 @@ public class ExercisesDetailListItemAdapter extends
         this.onItemListener=onItemListener;
     }
 
-
-
-
 }
