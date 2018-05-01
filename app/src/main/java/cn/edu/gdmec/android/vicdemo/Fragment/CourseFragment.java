@@ -27,10 +27,6 @@ import cn.edu.gdmec.android.vicdemo.adapter.ADViewPagerAdapter;
 import cn.edu.gdmec.android.vicdemo.adapter.CourseListItemAdapter;
 import cn.edu.gdmec.android.vicdemo.utils.AnalysisUtils;
 
-/**
- * Created by Jack on 2018/4/10.
- */
-
 public class CourseFragment extends Fragment {
     private ViewPager vp_advertBanner;
     private View dots_1;
