@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.edu.gdmec.android.vicdemo">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -25,5 +26,8 @@
         <activity android:name=".Activity.UserInfoActivity"></activity>
         <activity android:name=".Activity.ChangeUserInfoActivity"></activity>
         <activity android:name=".Activity.ExercisesDetailActivity"></activity>
+        <activity android:name=".Activity.VideoListActivity"></activity>
+        <activity android:name=".Activity.VideoPlayActivity"></activity>
+        <activity android:name=".Activity.PlayHistoryActivity"></activity>
     </application>
 </manifest>

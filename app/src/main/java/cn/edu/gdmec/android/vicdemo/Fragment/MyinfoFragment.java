@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.edu.gdmec.android.vicdemo.Activity.LoginActivity;
+import cn.edu.gdmec.android.vicdemo.Activity.PlayHistoryActivity;
 import cn.edu.gdmec.android.vicdemo.Activity.SettingActivity;
 import cn.edu.gdmec.android.vicdemo.Activity.UserInfoActivity;
 import cn.edu.gdmec.android.vicdemo.R;
@@ -75,6 +76,8 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener{
             case R.id.rl_course_history:
                 if (AnalysisUtils.readLoginStatus(getActivity())){
                     //跳转到播放记录页面
+                    Intent intent = new Intent(getActivity(), PlayHistoryActivity.class);
+                    getActivity().startActivity(intent);
                 }else {
                     Toast.makeText(getActivity(),"您未登录，请先登录",Toast.LENGTH_SHORT).show();
                 }
